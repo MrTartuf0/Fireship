@@ -17,13 +17,17 @@ import './style.css'
 
 
  const geometry = new THREE.CylinderGeometry( 1 , 1 , 20 , 100  )
- const material = new THREE.MeshStandardMaterial( { color: 0x0088FF } );
+ const material = new THREE.MeshLambertMaterial( { color: 0x0088FF } );
  const torus = new THREE.Mesh( geometry , material );
+ const geometry2 = new THREE.SphereGeometry( 6 , 3,  3 );
+ const sphere = new THREE.Mesh( geometry2 , material );
+ torus.rotation.z = 1.58;
+ sphere.position.y = -6;
 
- scene.add(torus)
+ scene.add(sphere , torus)
 
  const pointLight = new THREE.PointLight(0xffffff)
- const ambientLight = new THREE.AmbientLight(0xffffff)
+ const ambientLight = new THREE.AmbientLight(0xFF0000)
  pointLight.position.set(30,30,30)
  ambientLight.position.set(0,0,100)
  scene.add(pointLight,ambientLight)
@@ -31,11 +35,8 @@ import './style.css'
 function animate() {
   requestAnimationFrame ( animate );
 
+  torus.rotation.y += 1;
   // Questo lo possiamo considerare come il void loop() di arduino il codice si esegue ogni volta
-
-  torus.rotation.y += 0.1; 
-  torus.rotation.x -= 0.1; 
-  torus.rotation.z += 0.1; 
 
   renderer.render ( scene , camera );
 
